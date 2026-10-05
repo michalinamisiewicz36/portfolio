@@ -1,13 +1,416 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>portfolio</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+
+        body {
+            background-color: #fcf5f8;
+            color: #3a2230;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 15px;
+        }
+
+
+        .app-container {
+            width: 100%;
+            max-width: 900px;
+        }
+
+
+        .header-welcome {
+            text-align: center;
+            margin-bottom: 35px;
+            padding: 20px;
+        }
+
+        .welcome-icon {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            display: inline-block;
+            filter: drop-shadow(0 0 10px rgba(235, 104, 166, 0.4));
+        }
+
+        .welcome-title {
+            font-size: 2.2rem;
+            color: #4a2037;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .welcome-subtitle {
+            font-size: 1rem;
+            color: #7d506a;
+        }
+
+        .pink-widget {
+            background: #f7e8f0;
+            border: 2px solid #eab0d0;
+            border-radius: 20px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(210, 140, 175, 0.1);
+        }
+
+
+        .pink-widget.interactive {
+            cursor: pointer;
+        }
+
+        .pink-widget.interactive:hover {
+            transform: scale(1.04);
+            border-color: #eb68a6;
+            box-shadow: 0 0 20px rgba(235, 104, 166, 0.6), 0 8px 25px rgba(235, 104, 166, 0.3);
+            background: #fdf0f6;
+        }
+
+        .widget-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            color: #eb68a6;
+        }
+
+        .widget-title {
+            font-size: 1.3rem;
+            color: #4a2037;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .widget-desc {
+            font-size: 0.95rem;
+            color: #6b435b;
+            line-height: 1.5;
+        }
+
+        .widget-arrow {
+            align-self: flex-end;
+            margin-top: 15px;
+            font-size: 1.2rem;
+            color: #eb68a6;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .pink-widget.interactive:hover .widget-arrow {
+            transform: translateX(5px);
+        }
+
+
+        .grid-navigation {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+
+
+        .page-section {
+            display: none;
+            width: 100%;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        .btn-back {
+            background: #f7e8f0;
+            border: 2px solid #eab0d0;
+            color: #4a2037;
+            padding: 10px 20px;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-back:hover {
+            border-color: #eb68a6;
+            box-shadow: 0 0 12px rgba(235, 104, 166, 0.4);
+            transform: scale(1.02);
+            color: #eb68a6;
+        }
+
+
+        .about-details {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .tag-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .pink-tag {
+            background: #eab0d0;
+            color: #4a2037;
+            padding: 5px 12px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .btn-action {
+            display: inline-block;
+            background: #eb68a6;
+            color: white;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-weight: 600;
+            margin-top: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            border: none;
+            box-shadow: 0 4px 10px rgba(235, 104, 166, 0.3);
+        }
+
+        .btn-action:hover {
+            background: #d85292;
+            box-shadow: 0 0 15px rgba(235, 104, 166, 0.7);
+        }
+
+        /* STOPKA */
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #9c6c89;
+            font-size: 0.85rem;
+        }
+    </style>
 </head>
 
 <body>
+
+    <div class="app-container">
+
+
+        <header class="header-welcome">
+            <div class="welcome-icon">🌸</div>
+            <h1 class="welcome-title">Witam w moim portfolio</h1>
+            <p class="welcome-subtitle">dowiedz sie wiecej</p>
+        </header>
+
+        <!-- glowna -->
+        <main id="page-home" class="page-section active">
+            <div class="grid-navigation">
+
+                <!-- o mnie -->
+                <div class="pink-widget interactive" onclick="showPage('about')">
+                    <div>
+                        <div class="widget-icon">🌸</div>
+                        <h2 class="widget-title">O mnie</h2>
+                        <p class="widget-desc">Kim jestem, czym się zajmuję i jakie są moje zainteresowania w tworzeniu
+                            stron.</p>
+                    </div>
+                    <div class="widget-arrow">Zobacz →</div>
+                </div>
+
+                <!--projekty -->
+                <div class="pink-widget interactive" onclick="showPage('projects')">
+                    <div>
+                        <div class="widget-icon">🌸</div>
+                        <h2 class="widget-title">Moje Projekty</h2>
+                        <p class="widget-desc">Przejdź do listy moich prac i zobacz efekty moich dotychczasowych
+                            projektów.</p>
+                    </div>
+                    <div class="widget-arrow">Zobacz →</div>
+                </div>
+
+                <!--umiejętności -->
+                <div class="pink-widget interactive" onclick="showPage('skills')">
+                    <div>
+                        <div class="widget-icon">🌸</div>
+                        <h2 class="widget-title">Umiejętności</h2>
+                        <p class="widget-desc">Technologie, z których korzystam przy pisaniu kodu i tworzeniu stron.</p>
+                    </div>
+                    <div class="widget-arrow">Zobacz →</div>
+                </div>
+
+                <!-- kontakt -->
+                <div class="pink-widget interactive" onclick="showPage('contact')">
+                    <div>
+                        <div class="widget-icon">🌸</div>
+                        <h2 class="widget-title">Kontakt</h2>
+                        <p class="widget-desc">Masz pytania lub chcesz do mnie napisać? Tutaj znajdziesz dane
+                            kontaktowe.</p>
+                    </div>
+                    <div class="widget-arrow">Zobacz →</div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- podstrona o mnie -->
+        <section id="page-about" class="page-section">
+            <button class="btn-back" onclick="showPage('home')">← Powrót do strony głównej</button>
+
+            <div class="pink-widget">
+                <div class="widget-icon">🌸</div>
+                <h2 class="widget-title">O mnie</h2>
+                <p class="widget-desc" style="margin-top: 10px;">
+                    dopisz
+                </p>
+                <p class="widget-desc" style="margin-top: 10px;">
+                    dopisz
+                </p>
+            </div>
+        </section>
+
+        <!-- podstrona projekty -->
+        <section id="page-projects" class="page-section">
+            <button class="btn-back" onclick="showPage('home')">← Powrót do strony głównej</button>
+
+            <div style="margin-bottom: 20px;">
+                <h2 class="welcome-title" style="font-size: 1.6rem; text-align: left;">Projekty</h2>
+            </div>
+
+            <div class="grid-navigation" id="projects-container">
+
+            </div>
+        </section>
+
+        <!-- podstrona umie -->
+        <section id="page-skills" class="page-section">
+            <button class="btn-back" onclick="showPage('home')">← Powrót do strony głównej</button>
+
+            <div class="pink-widget">
+                <div class="widget-icon">💻</div>
+                <h2 class="widget-title">czego uzywam</h2>
+                <p class="widget-desc">Oto technologie, w których stawiam swoje pierwsze kroki:</p>
+
+                <div class="tag-container" style="margin-top: 15px;">
+                    <span class="pink-tag">HTML5</span>
+                    <span class="pink-tag">CSS3</span>
+                    <span class="pink-tag">JavaScript</span>
+                    <span class="pink-tag">VS Code</span>
+                    <span class="pink-tag">PHP</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- podstrona kon -->
+        <section id="page-contact" class="page-section">
+            <button class="btn-back" onclick="showPage('home')">← Powrót do strony głównej</button>
+
+            <div class="pink-widget">
+                <div class="widget-icon">💌</div>
+                <h2 class="widget-title">napisz</h2>
+                <p class="widget-desc">:</p>
+
+                <div style="margin-top: 15px;">
+                    <a href="mailto:twój-email@example.com" class="btn-action">✉️ Wyślij e-mail</a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            @ moje portfolio
+        </footer>
+
+    </div>
+
+    <script>
+
+        const projects = [
+            {
+                icon: "",
+                title: "projekt 1 ",
+                desc: "opis",
+                tags: ["HTML", "CSS", "JavaScript"],
+                demo: "#"
+            },
+            {
+                icon: "",
+                title: "projekt 2",
+                desc: "opis",
+                tags: ["JavaScript", "CSS"],
+                demo: "#"
+            },
+            {
+                icon: "",
+                title: "projekt 3",
+                desc: "opis",
+                tags: ["HTML", "CSS", "JS"],
+                demo: "#"
+            }
+        ];
+
+
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page-section');
+            pages.forEach(p => p.classList.remove('active'));
+
+            const target = document.getElementById('page-' + pageId);
+            if (target) {
+                target.classList.add('active');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+
+        function renderProjects() {
+            const container = document.getElementById('projects-container');
+            container.innerHTML = projects.map(p => `
+        <div class="pink-widget interactive">
+          <div>
+            <div class="widget-icon">${p.icon}</div>
+            <h3 class="widget-title">${p.title}</h3>
+            <p class="widget-desc">${p.desc}</p>
+            <div class="tag-container">
+              ${p.tags.map(t => `<span class="pink-tag">${t}</span>`).join('')}
+            </div>
+          </div>
+          <a href="${p.demo}" target="_blank" class="btn-action" style="margin-top: 20px;">Otwórz projekt ↗</a>
+        </div>
+      `).join('');
+        }
+
+        renderProjects();
+    </script>
 
 </body>
 
